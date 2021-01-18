@@ -1,6 +1,7 @@
 cffi==1.14.4
 chardet==4.0.0
 cryptography==3.3.1
+csvfaker==1.0.5
 Faker==5.5.1
 hiredis==1.1.0
 pdfminer==20191125
