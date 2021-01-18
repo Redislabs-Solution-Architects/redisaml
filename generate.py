@@ -51,7 +51,7 @@ def create_record(fake, id):
     record["phone"] = fake.phone_number()
     record["ip"] = fake.ipv4()
     # first, middle, last, address, country, ip
-    record["account"] = json.dumps(
+    record["account_details"] = json.dumps(
         {"Full Name": fake.name(), 
         "Street": fake.street_address(), 
         "Country": "US", "State": "NB", 
@@ -77,7 +77,7 @@ if __name__ == '__main__':
     namespace = environ.get('NAMESPACE', "case") + ":"
 
     r = Redis(host=redis_hostname, port=redis_port, decode_responses=True)
-    
+    r.info()
     fake = Faker()
 
     counter = 0
