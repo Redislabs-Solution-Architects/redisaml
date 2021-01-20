@@ -59,7 +59,7 @@ def get_case(case_id):
    #    (lambda x: [x.caseid, x.investigator, x.value, x.primary_acctno, x.ssn, x.report_body, (datetime.fromtimestamp(float(x.date_reported)).strftime('%c'))]) (x) for x in results.docs
    #    ]
    if request.args.get("render",None):
-      return render_template('case.html', case = case)
+      return render_template('case.html', case = case.__dict__)
    else:
       return case.__dict__
 
