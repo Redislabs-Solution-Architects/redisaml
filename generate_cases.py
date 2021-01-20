@@ -37,7 +37,7 @@ def create_record(fake, id):
     date_range = [1389576338,1601861138] # Jan 13 2014 to Oct 5 2020
 
     record["caseid"] = 10320000000 + id
-    record["status"] = statuses[random.randrange(0,len(statuses)-1)]
+    record["status"] = statuses[random.randrange(0,len(statuses))]
     record["investigator"] = random.randrange(501001,501501)
     record["value"] = int(abs(random.gauss(10000,300000)))
 
@@ -58,7 +58,7 @@ def create_record(fake, id):
         "Country": "US", "State": "NB", 
         "PostCode": fake.postcode()}
     )
-    record["priority"] = priorities[random.randrange(0,len(priorities)-1)]
+    record["priority"] = priorities[random.randrange(0,len(priorities))]
     record["related_tags"] = record["primary_acctno"]
     for _ in itertools.repeat(None,random.randrange(4,19)):
         record["related_tags"] = record["related_tags"] + "," + fake.ean8(prefixes=("41","82","21","97"))
