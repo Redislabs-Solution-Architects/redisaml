@@ -19,7 +19,8 @@ $ cd redisaml
 $ . .venv-redisaml/bin/activate  #activate it
 ```
 2. Install the requirements:
-``` pip install -r requirements.txt
+``` 
+pip install -r requirements.txt
 ```
 3. Create the schemas in the target database
 4. Generate the case data
@@ -31,9 +32,8 @@ $ . .venv-redisaml/bin/activate  #activate it
 There is a schema for the cases with embedded alert detail.
 ```
 FT.CREATE cases ON HASH PREFIX 1 case: 
-LANGUAGE "english" 
 SCHEMA 
-id NUMERIC SORTABLE
+caseid TAG SORTABLE
 status TAG SORTABLE
 investigator TAG SORTABLE
 value NUMERIC SORTABLE
@@ -41,7 +41,7 @@ files TAG SORTABLE
 date_reported NUMERIC SORTABLE
 date_last_updated NUMERIC SORTABLE
 report_body TEXT
-primary_acctno NUMERIC SORTABLE
+primary_acctno TAG SORTABLE
 phone TEXT NOSTEM
 ip TEXT NOSTEM
 account_details TEXT NOINDEX
@@ -50,7 +50,7 @@ related_tags TAG SORTABLE
 ssn TAG SORTABLE
 
 
-FT.CREATE cases ON HASH PREFIX 1 case: SCHEMA id NUMERIC SORTABLE status TAG SORTABLE investigator TAG SORTABLE value NUMERIC SORTABLE files TAG SORTABLE date_reported NUMERIC SORTABLE date_last_updated NUMERIC SORTABLE report_body TEXT primary_acctno NUMERIC SORTABLE phone TEXT NOSTEM ip TEXT NOSTEM account_details TEXT NOINDEX priority TAG SORTABLE related_tags TAG SORTABLE ssn TAG SORTABLE
+FT.CREATE cases ON HASH PREFIX 1 case: SCHEMA caseid TAG SORTABLE status TAG SORTABLE investigator TAG SORTABLE value NUMERIC SORTABLE files TAG SORTABLE date_reported NUMERIC SORTABLE date_last_updated NUMERIC SORTABLE report_body TEXT primary_acctno TAG SORTABLE phone TEXT NOSTEM ip TEXT NOSTEM account_details TEXT NOINDEX priority TAG SORTABLE related_tags TAG SORTABLE ssn TAG SORTABLE
 ```
 
 Here is the files schema:
@@ -67,8 +67,6 @@ FT.CREATE files ON HASH PREFIX 1 file: SCHEMA caseid TAG SORTABLE s3_url TEXT NO
 ```
 
 ## Generate the case data
-
-
 
 
 ### Example
@@ -137,7 +135,7 @@ Sample record: {
 ```
 
 
-## Example Queries
+## Example Redisearch Queries
 
 Which cases contain the word 'society' in report_body:
 ``` 
@@ -191,6 +189,13 @@ ft.search files "building @caseid:{10320000064}" RETURN 1 body SUMMARIZE HIGHLIG
    2) "decision. Analysis these avoid ago. Bar hear at. Fast more <b>building</b> keep. Manage board then left southern travel. President... full. Sea movie pattern shoulder audience open middle sea. <b>Building</b> land remember better general address end. Successful game... "
 ```
 
+## Example API Queries
+
+* `http://localhost:5000/search?val_min=1000&val_max=10000&count=2`
+* `http://localhost:5000/search?render=1&val_min=1000&val_max=10000&count=2`
+* `http://localhost:5000/search?val_min=1000&val_max=10000&count=12&search_str=industry`
+* `http://localhost:5000/search?val_min=1000&val_max=10000&count=12&tag_str=41923764`
+* 
 
 ### Optional
 Generate *N* CSV files to be indexed in directory 'files/':

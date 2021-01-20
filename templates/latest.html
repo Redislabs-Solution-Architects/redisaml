@@ -1,0 +1,38 @@
+{% block title %}RediSearch{% endblock %}
+
+{% block metas %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block styles %}
+  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//jqueryui.com/resources/demos/style.css">
+  <style>
+  .ui-autocomplete-loading {
+    background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<h3>Latest New Cases{{ field }}</h3>
+
+<div class="container">
+<table class="table table-dark table-striped w-auto" >
+  <thead class="thead-dark">
+	  <tr><th>Case ID</th><th>Investigator ID</th><th>Value</th><th>AcctNo</th><th>SIN</th><th>Report Body</th><th>Date</th></tr>
+  </thead>
+  <tbody>
+    {% for case in cases %}
+    <tr><td><a href="/{{ case[0] }}">{{ case.value }}</a></td><td>{{ case[1] }}</td><td>${{ case[2] }}</td><td>{{ case[3] }}</td><td>{{ case[4] }}</td><td>{{ case[5] }}</td><td>{{ case[6] }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+Results found: <b>{{ total }} </b>
+</div>
+
+{% endblock %}
+ 

@@ -75,7 +75,7 @@ if __name__ == '__main__':
     print("Records to use: {}", seeds)
     caselist = list()
     for result in seeds:
-        caselist.append(r.hget(result,"id"))
+        caselist.append(r.hget(result,"caseid"))
     random.shuffle(caselist)
 
     # generate the text files

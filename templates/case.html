@@ -1,0 +1,48 @@
+{% block title %}RediSearch{% endblock %}
+
+{% block metas %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+
+{% block styles %}
+  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="//jqueryui.com/resources/demos/style.css">
+  <style>
+  .ui-autocomplete-loading {
+    background: white url("http://jqueryui.com/resources/demos/autocomplete/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<h3>Case{{ field }}</h3>
+
+<div class="container">
+
+  <ul>
+    <li>Case ID: {{ case.caseid }} </li>
+    <li>Priority: {{ case.priority }} </li>
+    <li>Status: {{ case.status }} </li>
+    <li>$ Value: $ {{ case.value }} </li>
+    <li>Date Reported: {{ case.date_reported }} </li>
+    <li>Date Last Updated: {{ case.date_last_updated }} </li>
+    <li>Investigator ID: {{ case.investigator }} </li>
+    <li>SSN: {{ case.ssn }} </li>
+    <li>Primary AcctNo: {{ case.primary_acctno }} </li>
+    <li>Phone: {{ case.phone }} </li>
+    <li>IP Address: {{ case.ip }} </li>
+    <li>Account Details: {{ case.account_details }} </li>
+    <li>Related Accounts/SSNs: {{ case.related_tags }} </li>
+    <li>Report Body: {{ case.report_body }} </li>
+    <li>Files: {{ case.files }} </li>
+
+
+  </ul>
+
+</div>
+
+{% endblock %}
+ 

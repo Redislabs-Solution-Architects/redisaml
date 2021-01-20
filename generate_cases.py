@@ -36,7 +36,7 @@ def create_record(fake, id):
     priorities = ["low","med","high"]
     date_range = [1389576338,1601861138] # Jan 13 2014 to Oct 5 2020
 
-    record["id"] = 10320000000 + id
+    record["caseid"] = 10320000000 + id
     record["status"] = statuses[random.randrange(0,len(statuses)-1)]
     record["investigator"] = random.randrange(501001,501501)
     record["value"] = int(abs(random.gauss(10000,300000)))
@@ -93,7 +93,7 @@ def paint(r, record_total, num_tags, num_sources, num_targets):
 
         targets = list()
         for _ in itertools.repeat(None, random.randrange(3,3+num_targets)):
-            targets.append(namespace + str(create_record(fake, random.randrange(1,int(record_total)))["id"]))
+            targets.append(namespace + str(create_record(fake, random.randrange(1,int(record_total)))["caseid"]))
         print("Targets: {}".format(targets))
 
 
@@ -132,7 +132,7 @@ if __name__ == '__main__':
                     record = create_record(fake,counter)
                     if counter == 0: 
                         print("Sample record: {}".format(json.dumps(record, indent=4)))
-                    pipe.hset("{}{}".format(namespace,record["id"]),mapping=record)
+                    pipe.hset("{}{}".format(namespace,record["caseid"]),mapping=record)
                     counter = counter + 1
                 pipe.execute()
             if counter % 1000 == 0 :
