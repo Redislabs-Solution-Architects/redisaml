@@ -191,11 +191,16 @@ ft.search files "building @caseid:{10320000064}" RETURN 1 body SUMMARIZE HIGHLIG
 
 ## Example API Queries
 
+Note: Results return as JSON. If you want to render the UI add `render=1` as a URL param.
+
 * `http://localhost:5000/search?val_min=1000&val_max=10000&count=2`
 * `http://localhost:5000/search?render=1&val_min=1000&val_max=10000&count=2`
 * `http://localhost:5000/search?val_min=1000&val_max=10000&count=12&search_str=industry`
 * `http://localhost:5000/search?val_min=1000&val_max=10000&count=12&tag_str=41923764`
-* 
+* `http://localhost:5000/filesearch?search_str=parent`
+* `http://localhost:5000/filesearch?search_str=Book&filetype=csv`
+* Individual record: `https://localhost:5000/10320001606`
+
 
 ### Optional
 Generate *N* CSV files to be indexed in directory 'files/':
