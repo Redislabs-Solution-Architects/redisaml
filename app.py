@@ -135,7 +135,7 @@ def file_search():
    cases = [
       (lambda x: [x.caseid, x.id, x.filetype, x.s3_url, (datetime.fromtimestamp(float(x.date_added)).strftime('%c')), x.body]) (x) for x in results.docs
       ]
-   return render_template('latest.html', cases = cases, total = total)
+   return render_template('fileresults.html', cases = cases, total = total)
 
 if __name__ == '__main__':
 
