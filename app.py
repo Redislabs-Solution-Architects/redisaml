@@ -135,7 +135,13 @@ def file_search():
    cases = [
       (lambda x: [x.caseid, x.id, x.filetype, x.s3_url, (datetime.fromtimestamp(float(x.date_added)).strftime('%c')), x.body]) (x) for x in results.docs
       ]
-   return render_template('fileresults.html', cases = cases, total = total)
+
+   files_dict = [ (lambda x: x.__dict__)(x) for x in results.docs ]
+
+   if request.args.get("render",None):
+      return render_template('fileresults.html', cases = cases, total = total)
+   else:
+      return jsonify(files_dict)
 
 if __name__ == '__main__':
 
