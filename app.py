@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect,jsonify
+from flask_cors import CORS
 # from flask_bootstrap import Bootstrap
 # from flask_nav import Nav
 # from flask_nav.elements import Navbar, View
@@ -31,6 +32,7 @@ redis_password = environ.get('REDIS_PASSWORD',"")
 
 
 app = Flask(__name__)
+CORS(app)
 # bootstrap = Bootstrap()
 
 caseclient = Client(

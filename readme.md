@@ -189,7 +189,7 @@ ft.search files "building @caseid:{10320000064}" RETURN 1 body SUMMARIZE HIGHLIG
    2) "decision. Analysis these avoid ago. Bar hear at. Fast more <b>building</b> keep. Manage board then left southern travel. President... full. Sea movie pattern shoulder audience open middle sea. <b>Building</b> land remember better general address end. Successful game... "
 ```
 
-## Example API Queries
+## Example API Requests
 
 Note: Results return as JSON. If you want to render the UI add `render=1` as a URL param.
 
@@ -199,6 +199,7 @@ Note: Results return as JSON. If you want to render the UI add `render=1` as a U
 * `http://localhost:5000/search?val_min=1000&val_max=10000&count=12&tag_str=41923764`
 * `http://localhost:5000/filesearch?search_str=parent`
 * `http://localhost:5000/filesearch?search_str=Book&filetype=csv`
+* `http://localhost:5000/filesearch?summarize=true&caseid=10320005755&search_str=51966904`
 * Individual record: `https://localhost:5000/10320001606`
 
 

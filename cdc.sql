@@ -1,3 +1,4 @@
+drop table [case];
 
 create table [RedisLabsCDC].[dbo].[case] (
     caseid BIGINT NOT NULL,
