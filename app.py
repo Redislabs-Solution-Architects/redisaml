@@ -57,7 +57,7 @@ def get_case(case_id):
       case = results.docs[0]
    else:
       case = "None found"
-      return None
+      return {"Results": 0}
    # case = [
    #    (lambda x: [x.caseid, x.investigator, x.value, x.primary_acctno, x.ssn, x.report_body, (datetime.fromtimestamp(float(x.date_reported)).strftime('%c'))]) (x) for x in results.docs
    #    ]
