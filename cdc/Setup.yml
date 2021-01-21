@@ -1,0 +1,44 @@
+connectionId: jobConfigConnection
+job:
+  stream: jobStream
+  configSet: jobConfigs
+  consumerGroup: jobGroup
+  metrics:
+    connectionId: metricsConnection
+    retentionInHours: 12
+    keys:
+      - key: "dbo:case:C:Throughput"
+        retentionInHours: 4
+        labels:
+          schema: dbo
+          table: case
+          op: I
+      - key: "dbo:case:U:Throughput"
+        retentionInHours: 4
+        labels:
+          schema: dbo
+          table: case
+          op: U
+      - key: "dbo:case:D:Throughput"
+        retentionInHours: 4
+        labels:
+          schema: dbo
+          table: case
+          op: D
+      - key: "dbo:case:Latency"
+        retentionInHours: 4
+        labels:
+          schema: dbo
+          table: case
+  jobConfig:
+    - name: testdb-case
+      config: JobConfig.yml
+      variables:
+        database: testdb
+        sourceValueTranslator: SOURCE_RECORD_2_OP_TRANSLATOR
+
+        
+
+
+
+

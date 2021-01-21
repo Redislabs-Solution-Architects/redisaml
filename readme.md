@@ -2,6 +2,10 @@
 
 This repository creates a coherent AML case management data set in Redisearch and "paints" a situation by labelling a few records with similar entries. 
 
+![AML Case Management Search Solutino](redisaml.png)
+
+## Getting started
+
 1. Create your python environment (w/ python3.7+):
    * With pyenv: 
 ```
@@ -25,7 +29,8 @@ pip install -r requirements.txt
 3. Create the schemas in the target database
 4. Generate the case data
 5. Generate the file data
-6. Query the data
+6. Query the data in RedisInsight *or*
+7. Query the data against the API 
 
 ## Create the Schemas
 
@@ -133,7 +138,15 @@ Sample record: {
     "date_added": 1436571647
 }
 ```
+## Start the Search app API
 
+From the main repo directory:
+```
+(venv) redisaml$ python app.py 
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+ ...
+```
 
 ## Example Redisearch Queries
 
@@ -189,6 +202,8 @@ ft.search files "building @caseid:{10320000064}" RETURN 1 body SUMMARIZE HIGHLIG
    2) "decision. Analysis these avoid ago. Bar hear at. Fast more <b>building</b> keep. Manage board then left southern travel. President... full. Sea movie pattern shoulder audience open middle sea. <b>Building</b> land remember better general address end. Successful game... "
 ```
 
+
+
 ## Example API Requests
 
 Note: Results return as JSON. If you want to render the UI add `render=1` as a URL param.
@@ -204,7 +219,8 @@ Note: Results return as JSON. If you want to render the UI add `render=1` as a U
 
 
 ### Optional
-Generate *N* CSV files to be indexed in directory 'files/':
+
+## Generate *N* CSV files to be indexed in directory 'files/':
 ```
 $ N=234
 $ for i in $(seq 0 1 $N); do csvfaker -r $((1 + $RANDOM % 40)) first_name last_name job ean8 ssn > files/csv$i.csv; done;
@@ -216,3 +232,9 @@ You can index these files this way:
 $ export COUNT=0; export CSV_DIR=files; python generate_text_files.py
 ```
 You should probably delete the files now. `rm -r files/*.csv`
+
+## Use RedisCDC to populate case data
+
+Follow [this link](https://github.com/RedisLabs-Field-Engineering/RedisCDC/tree/master/Connectors/mssql/demo) for instructions to setup Redis CDC.
+
+Use the files in the `cdc/` directory as the configuration of your CDC jobs.

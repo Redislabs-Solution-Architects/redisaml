@@ -1,0 +1,9 @@
+<Schema xmlns="http://cdc.ivoyant.com/Mapper/Config" name="dbo">
+<Tables>
+        <Table name="case">
+            <Mapper id="caseid" processorID="Test" publishBefore="false" passThrough="true">
+                <Column src="caseid" target="caseid" publishBefore="false"/>
+            </Mapper>
+        </Table>
+    </Tables>
+</Schema>
