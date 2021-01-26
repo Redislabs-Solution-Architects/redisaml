@@ -1,14 +1,11 @@
 <template>
   <!-- <header> -->
-    <nav class="navbar sticky navbar-expand-sm navbar-light bg-light mb-5">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <i class="fas fa-project-diagram" />
-          <span class="ml-3">AML Case and File Search</span>
-        </a>
 
+      <div class="container" >
+        <h6>asdf</h6>
+        
       </div>
-    </nav>
+
 
   <!-- </header> -->
 </template>
@@ -17,10 +14,11 @@
 
 // import SearchForm from './SearchForm';
 export default {
-  name: 'Header',
+  name: 'Footer',
   components: {
     // SearchForm,
-  }  
+  },
+  props: ['indexInfo']  
 };
 </script>
 

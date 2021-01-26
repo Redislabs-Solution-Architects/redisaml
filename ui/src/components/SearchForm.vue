@@ -7,7 +7,7 @@
           @keydown.13.prevent="parseSearchString"
           type="text"
           class="form-control"
-          placeholder="Search ..."
+          placeholder="Search ...: <terms> @investigator:{ } @priority:{ } @status:{ } @primary_acctno:{ } @related_tags:{ } @ssn:{ }"
         >
         <div class="input-group-append">
           <button @click="parseSearchString" class="btn btn-outline-secondary" type="button">
@@ -15,13 +15,10 @@
           </button>
         </div>
       </div>
-            <input type="radio" id="case" value="case" v-model="picked"> cases
-            <!-- <input type="radio" v-model="picked" v-bind:value="case" /> Case -->
-            <!-- <label for="case">Cases</label> -->
-
-            <input type="radio" id="file" value="file" v-model="picked"> files
-            <!-- <label for="file">Files</label> -->
-            <span>{{ picked }}</span>
+      <div class="container">
+        <input type="radio" id="case" value="case" v-model="picked"> cases
+        <input type="radio" id="file" value="file" v-model="picked"> files
+      </div>
     </form>
   </div>
 </template>
@@ -39,8 +36,6 @@ export default {
     parseSearchString() {
       // Trim search string
       const trimmedSearchString = this.searchString.trim();
-    //   console.log(this.picked);
-      this.case_or_file = "case"
 
       if (trimmedSearchString !== '') {
         // Split search string

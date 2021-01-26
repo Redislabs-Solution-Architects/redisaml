@@ -5,14 +5,17 @@
     <SearchResults
       v-if="results.length > 0"
       v-bind:results="results"
+      v-bind:resultsType="resultsType"
       v-bind:reformattedSearchString="reformattedSearchString"
     />
+    <Footer />
   </div>
 </template>
 <script>
 import Header from './components/Header';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
+import Footer from './components/Footer';
 // import FileItem from './components/FileItem';
 // import CaseItem from './components/CaseItem';
 import axios from 'axios';
@@ -22,7 +25,8 @@ export default {
   components: {
     Header,
     SearchForm,
-    SearchResults
+    SearchResults,
+    Footer
     // ,
     // FileItem,
     // CaseItem
@@ -31,17 +35,18 @@ export default {
     return {
       results: [],
       reformattedSearchString: '',
-      case_or_file: "case",
-      resultCount: 25,
+      resultsType: '',
+      resultLimit: 25,
+      indexInfo: null,
       caseSearchOptions: {
         val_min: 0,
         val_max: 10000000,
-        investigator: null,
-        status: null,
-        priority: null,
-        pri_acctno: null,
-        related_tags: null,
-        ssn: null
+        // investigator: null,
+        // status: null,
+        // priority: null,
+        // pri_acctno: null,
+        // related_tags: null,
+        // ssn: null
       },
       fileSearchOptions: {
         filetype: null,
@@ -54,32 +59,47 @@ export default {
     };
   },
   methods: {
-    search(searchParams, case_or_file) {
+    search(searchParams, searchType) {
       this.reformattedSearchString = searchParams.join(' ');
       this.api.q = searchParams.join('+');
-      console.log(searchParams)
+      var apiUrl = "";
 
-      if (case_or_file == "case") {
-        // this.case_or_file = "case";
-        const { baseUrl, q} = this.api;
-        const apiUrl = `${baseUrl}search?count=${this.resultCount}&search_str=${q}`;
-        console.log(apiUrl);
-        this.getData(apiUrl);
+      this.resultsType = searchType;
+      console.log("Search params:" + this.reformattedSearchString + ", searchType: " + this.resultsType);
+      // console.log("caseSearchOptions: " + this.caseSearchOptions);
+      // this.case_or_file = "file";
+      const { baseUrl, q} = this.api;
+
+      if (searchType == "case") {
+        apiUrl = `${baseUrl}search?count=${this.resultLimit}&search_str=${q}`;
+      } else if (searchType == "file") {
+        apiUrl = `${baseUrl}filesearch?count=${this.resultLimit}&search_str=${q}`;
       } else {
-        // this.case_or_file = "file";
-        const { baseUrl, q} = this.api;
-        const apiUrl = `${baseUrl}filesearch?count=${this.resultCount}&search_str=${q}`;
-        console.log(apiUrl);
-        this.getData(apiUrl);
+        console.log("How did we get here? 451");
       }
 
+      console.log(apiUrl);
+      // this.getData(apiUrl);
+
+      console.log("Fetching index info...");
+      this.getData(this.api.baseUrl + "info/all")
+
     },
+    // getIndexInfo() {
+
+    // },
     getData(apiUrl) {
       axios
         .get(apiUrl)
         .then(res => {
-          this.results = res.data;
-          console.log(res.data)
+          if ('data' in res) {
+            this.results = res.data;
+            console.log("Index data: " + res.data)
+          } else {
+            this.indexInfo = res.indeces;
+            console.log("Index data: " + res.indices);
+          }
+
         })
         .catch(error => console.log(error));
     }
@@ -94,6 +114,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>

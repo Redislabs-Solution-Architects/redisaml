@@ -1,77 +1,112 @@
 <template>
+
   <div class="container mb-3">
     <div class="d-flex mb-3">
       <div class="mr-auto">
-        <h3>Search Results for "{{ reformattedSearchString }}"</h3>
+        <h5>Search Results for "{{ reformattedSearchString }}". <i>#ToDo</i> records found.</h5>
       </div>
-      <!-- <div class="btn-group ml-auto" role="group">
-        <button
-          @click="changeDisplayMode('grid')"
-          type="button"
-          class="btn btn-outline-secondary"
-          v-bind:class="{ active: displayMode === 'grid' }"
-        >
-          <i class="fas fa-th"></i>
-        </button>
-        <button
-          @click="changeDisplayMode('list')"
-          type="button"
-          class="btn btn-outline-secondary"
-          v-bind:class="{ active: displayMode === 'list' }"
-        >
-          <i class="fas fa-list"></i>
-        </button>
-      </div> -->
     </div>
 
-    <div class="card-columns" v-if="case_or_file === 'file'">
-      <div class="card" v-bind:key="result.id" v-for="result in results">
-          File Search!
-        <!-- <VideoGridItem v-bind:video="video"/> -->
-        <CaseItem />
-      </div>
+    <div v-if="resultsType === 'case'" class="mr-auto">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Case ID</th>
+                    <th scope="col">Inv. ID</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Acct. #</th>
+                    <th scope="col">SSN</th>
+                    <th scope="col">Date Reported</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-for="(result, index) in results">
+                    <tr :key="index" @click="doit(index)">
+                        <td>{{ index + 1 }} </td>
+                        <td><a href="">{{ result.caseid }}</a></td>
+                        <td>{{ result.investigator }}</td>
+                        <td>{{ result.value | formatMoney}}</td>
+                        <td>{{ result.priority }}</td>
+                        <td>{{ result.status }}</td>
+                        <td>{{ result.primary_acctno }}</td>
+                        <td>{{ result.ssn }}</td>
+                        <td>{{ result.date_reported | formatDate}}</td>
+                        <!-- <td>{{ result. }}</td> -->
+                    </tr>  
+                </template>
+            </tbody>
+        </table>
     </div>
-    <div v-if="case_or_file === 'case'">
-      <div class="card mb-2" v-bind:key="result.id" v-for="result in results">
-          Case Search!
-        <!-- <VideoListItem v-bind:video="video"/> -->
-        <FileItem />
-      </div>
-    </div>
-    <div v-else>
-        File or Case search not set!
+    <div v-if="resultsType  === 'file'">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">File ID</th>
+                    <th scope="col">Case ID</th>
+                    <th scope="col">s3_url</th>
+                    <th scope="col">Filetype</th>
+                    <th scope="col">Date Reported</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-for="(result, index) in results">
+                    <tr :key="index" @click="doit(index)">
+                        <td>{{ index + 1 }} </td>
+                        <td><a href="">{{ result.guid }}</a></td>
+                        <td>{{ result.caseid }}</td>
+                        <td><a href="">{{ result.s3_url }}</a></td>
+                        <td>{{ result.filetype }}</td>
+                        <td>{{ result.date_added | formatDate}}</td>
+                    </tr>  
+                </template>
+            </tbody>
+        </table>
     </div>
   </div>
+
+
 </template>
 
 <script>
-import FileItem from './FileItem';
-import CaseItem from './CaseItem';
+// import FileItem from './FileItem';
+// import CaseItem from './CaseItem';
 
 export default {
   name: 'SearchResults',
   components: {
-    FileItem,
-    CaseItem
   },
   data() {
     return {
-        // case_or_file: null,
       title: 'Search Results',
-    //   displayMode: 'grid'
     };
   },
   methods: {
-    // changeDisplayMode(displayMode) {
-    //   this.displayMode = displayMode;
-    // }
+    doit (index)
+    {
+      //$('#exampleModal').modal('show')
+      console.log(index);
+    }
   },
-  props: ['results', 'reformattedSearchString','case_or_file']
+  props: ['results', 'reformattedSearchString','resultsType','resultsCount'],
 };
 </script>
 
 <style scoped>
 button:focus {
   box-shadow: none !important;
+}
+
+container mb-3{
+
+}
+
+.detail-row{
+ margin: 120px;
+ text-align: left;
+ background-color: lightgray;
 }
 </style>

@@ -1,8 +1,5 @@
 from flask import Flask, render_template, request, redirect,jsonify
 from flask_cors import CORS
-# from flask_bootstrap import Bootstrap
-# from flask_nav import Nav
-# from flask_nav.elements import Navbar, View
 from redisearch import AutoCompleter, Suggestion, Client, Query, aggregation, reducers, IndexDefinition, TextField, NumericField, TagField
 
 from os import environ
@@ -50,6 +47,8 @@ fileclient = Client(
 
 @app.route('/<case_id>')
 def get_case(case_id):
+   if not (case_id.isnumeric()):
+      return {"Error":"Case id should be numeric"}
    query = Query("@caseid:{" + case_id + "}").paging(0, 1)
    results = caseclient.search(query)
    total = results.total
@@ -146,21 +145,20 @@ def file_search():
    else:
       return jsonify(files_dict)
 
+@app.route('/info/<index>')
+def index_info(index):
+   if index == "cases":
+      return jsonify(caseclient.info())    
+   elif index == "files":
+      return jsonify(fileclient.info()) 
+   elif index == "all":
+      caseInfo = caseclient.info()
+      fileInfo = fileclient.info()
+      return jsonify({"cases": caseInfo, "files": fileInfo})
+   else:
+      return {}
+
 if __name__ == '__main__':
 
-
-   # nav = Nav()
-   # topbar = Navbar('',
-   #    View('Home', 'index'),
-   #    # View('Case Search', 'search_cases'),
-   #    # View('File Search', 'search_files'),
-   #    # View('Aggregations', 'show_agg'),
-   # )
-   # nav.register_element('top', topbar)
-
-
-
-   # bootstrap.init_app(app)
-   # nav.init_app(app)
    app.debug = True
    app.run(port=5000, host="0.0.0.0")
