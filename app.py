@@ -109,7 +109,7 @@ def index():
       (lambda x: [x.caseid, x.investigator, x.value, x.primary_acctno, x.ssn, x.report_body, (datetime.fromtimestamp(float(x.date_reported)).strftime('%c'))]) (x) for x in results.docs
       ]
    
-   cases_dict = [ (lambda x: x.__dict__)(x) for x in results.docs ]
+   cases_dict = {"results": [ (lambda x: x.__dict__)(x) for x in results.docs ], "resultsCount":total}
 
    if request.args.get("render",None):
       return render_template('latest.html', cases = cases, total = total)
@@ -134,14 +134,14 @@ def file_search():
 
    results = fileclient.search(query)
    total = results.total
-   cases = [
+   files = [
       (lambda x: [x.caseid, x.id, x.filetype, x.s3_url, (datetime.fromtimestamp(float(x.date_added)).strftime('%c')), x.body]) (x) for x in results.docs
       ]
 
-   files_dict = [ (lambda x: x.__dict__)(x) for x in results.docs ]
+   files_dict = {"results": [ (lambda x: x.__dict__)(x) for x in results.docs ], "resultsCount":total}
 
    if request.args.get("render",None):
-      return render_template('fileresults.html', cases = cases, total = total)
+      return render_template('fileresults.html', cases = files, total = total)
    else:
       return jsonify(files_dict)
 

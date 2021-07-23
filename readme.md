@@ -6,31 +6,37 @@ This repository creates a coherent AML case management data set in Redisearch an
 
 ## Getting started
 
-1. Create your python environment (w/ python3.7+):
+1. clone the project and cd to the project directory:
+```
+[~ ]$ git clone https://github.com/Redislabs-Solution-Architects/redisaml.git
+[~ ]$ cd redisaml
+[~/redisaml/ ]$ 
+```
+2. Create your python environment (w/ python3.7+):
    * With pyenv: 
 ```
-$ pyenv versions  # which versions exist?
+[~/redisaml/ ]$ pyenv versions  # which versions exist?
   3.7.5
   3.7.5/envs/venv375
 * 3.7.6 (set by /Users/brad/.pyenv/version)
-$ pyenv global 3.7.6  # set this version
-# python -m venv .venv-redisaml
+[~/redisaml/ ]$ pyenv global 3.7.6  # set this version
+[~/redisaml/ ]$ python -m venv .venv-redisaml
 ```
    * or virtualenv:
 ``` 
-$ virtualenv -p python3.7 .venv-redisaml
-$ cd redisaml
-$ . .venv-redisaml/bin/activate  #activate it
+[~/redisaml/ ]$ virtualenv -p python3.7 .venv-redisaml
+[~/redisaml/ ]$ . .venv-redisaml/bin/activate  #activate it
+(.venv-redisaml) [~/redisaml/ ]$
 ```
-2. Install the requirements:
+3. Install the requirements:
 ``` 
 pip install -r requirements.txt
 ```
-3. Create the schemas in the target database
-4. Generate the case data
-5. Generate the file data
-6. Query the data in RedisInsight *or*
-7. Query the data against the API 
+4. Create the schemas in the target database
+5. Generate the case data
+6. Generate the file data
+7. Query the data in RedisInsight *or*
+9. Query the data against the API 
 
 ## Create the Schemas
 

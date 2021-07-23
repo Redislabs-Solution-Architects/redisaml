@@ -1,34 +1,42 @@
 <template>
-  <!-- <header> -->
 
-      <div class="container" >
-        <h6>asdf</h6>
-        
+      <div class="container" :indexInfo="indexInfo">
+        <hr />
+        <div v-if="indexInfo">
+          Cases: {{ indexInfo.cases.num_docs }}, Files: {{ indexInfo.files.num_docs }}
+        </div>
       </div>
 
-
-  <!-- </header> -->
 </template>
 
 <script>
 
-// import SearchForm from './SearchForm';
 export default {
   name: 'Footer',
-  components: {
-    // SearchForm,
+  data() {
+    return {
+      indexInfo: {
+        cases: {
+          num_docs: null,
+        },
+        files: {
+          num_docs: null,
+        }
+      },
+    }
   },
-  props: ['indexInfo']  
+  methods: {
+    async getInfo() {
+      const res = await fetch(this.api.baseUrl + "/info/all");
+      this.indexInfo = await res.json();
+    }
+  },
+  mounted() {
+    this.getInfo()
+  },
+  props: ['api'],  
 };
 </script>
 
 <style scoped>
-i {
-  vertical-align: middle;
-  color: orange;
-}
-
-i + span {
-  vertical-align: middle;
-}
 </style>

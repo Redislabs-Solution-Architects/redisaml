@@ -6,7 +6,11 @@
           <i class="fas fa-project-diagram" />
           <span class="ml-3">AML Case and File Search</span>
         </a>
-
+        <div id="nav">
+          <router-link to="/search">Search</router-link> |
+          <router-link to="/about">About</router-link> |
+          <router-link to="/info">Info</router-link>
+        </div>
       </div>
     </nav>
 

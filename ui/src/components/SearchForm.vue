@@ -7,8 +7,9 @@
           @keydown.13.prevent="parseSearchString"
           type="text"
           class="form-control"
-          placeholder="Search ...: <terms> @investigator:{ } @priority:{ } @status:{ } @primary_acctno:{ } @related_tags:{ } @ssn:{ }"
+          v-bind:placeholder='[[ searchPlaceHolder ]]'
         >
+        <!-- "" -->
         <div class="input-group-append">
           <button @click="parseSearchString" class="btn btn-outline-secondary" type="button">
             <i class="fas fa-search"></i>
@@ -16,8 +17,8 @@
         </div>
       </div>
       <div class="container">
-        <input type="radio" id="case" value="case" v-model="picked"> cases
-        <input type="radio" id="file" value="file" v-model="picked"> files
+        <input type="radio" id="case" value="case" v-model="picked" @click="setSearchPlaceholder('case')"> cases
+        <input type="radio" id="file" value="file" v-model="picked" @click="setSearchPlaceholder('file')"> files
       </div>
     </form>
   </div>
@@ -29,10 +30,24 @@ export default {
   data() {
     return {
       picked: "case",
-      searchString: ''
+      searchString: '',
+      fileSearchPlaceholder: "Search ...: <terms> @filetype:{ } @guid:{ } @body:{ } @caseid:{ }",
+      caseSearchPlaceholder: "Search ...: <terms> @investigator:{ } @priority:{ } @status:{ } @primary_acctno:{ } @related_tags:{ } @ssn:{ }",
+
+      searchPlaceHolder: "",
     };
   },
   methods: {
+    setSearchPlaceholder(searchType){
+      if (searchType == "case") {
+        this.searchPlaceHolder = "bugga";
+              console.log("We got here");
+      } else {
+        this.searchPlaceholder = "boo";
+              console.log("We got here2");
+      }
+
+    },
     parseSearchString() {
       // Trim search string
       const trimmedSearchString = this.searchString.trim();
